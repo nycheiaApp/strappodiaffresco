@@ -1,9 +1,18 @@
+Ecco il codice aggiornato.
+
+Ho aggiunto il tag `<link rel="icon">` nell' `<head>` per collegare la favicon. Poiché il simbolo è un grafico vettoriale (SVG) presente nel codice, ho convertito quel simbolo in un formato **Data URI** (un'immagine codificata direttamente nel testo) così puoi usare questo file immediatamente senza dover caricare immagini esterne o file `.ico` separati.
+
+Ho anche aggiornato il tag `<title>` aggiungendo l'emoji del pennello per far apparire il simbolo anche nella scheda del browser.
+
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adriano Segarelli — Affreschi e Strappo d'Affresco</title>
+<!-- Favicon generata dal simbolo SVG presente nel logo -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M6 30 L20 6 L34 30 Z' stroke='%23c0472a' stroke-width='2' fill='none'/%3E%3Cpath d='M13 24 L27 24' stroke='%238b4226' stroke-width='2'/%3E%3C/svg%3E">
+<title>Adriano Segarelli — Affreschi e Strappo d'Affresco 🖌️</title>
 <meta name="description" content="Affreschi su commissione, realizzati anche con la tecnica dello strappo d'affresco per creare opere murali trasportabili. Interventi per abitazioni private, spazi pubblici, eventi e commemorazioni.">
 <style>
   :root{
@@ -664,7 +673,7 @@
     });
   });
 
-  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxClose.addEventListener('click', lightboxClose.addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
