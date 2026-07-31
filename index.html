@@ -72,26 +72,55 @@
   .brand .mark{
     width:30px; height:30px; flex:none;
   }
-  .navlinks{display:flex; gap:30px; list-style:none; margin:0; padding:0;}
-  .navlinks a{
-    text-decoration:none; font-size:.86rem; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--carbone); opacity:.75; transition:opacity .2s ease, color .2s ease;
-    border-bottom:1px solid transparent; padding-bottom:2px;
+
+  /* Pulsante menu: sempre visibile, apre l'overlay su qualunque dimensione di schermo */
+  .nav-toggle{
+    display:flex; align-items:center; gap:12px;
+    background:none; border:none; cursor:pointer; padding:6px;
   }
-  .navlinks a:hover{opacity:1; border-color:var(--sinopia);}
-  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
-  .nav-toggle span{display:block; width:22px; height:2px; background:var(--carbone); margin:5px 0;}
+  .nav-toggle .nav-toggle-label{
+    font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--carbone);
+  }
+  .nav-toggle .bars{ display:inline-block; }
+  .nav-toggle span{display:block; width:22px; height:2px; background:var(--carbone); margin:5px 0; transition:transform .25s ease, opacity .25s ease;}
+
+  /* Overlay del menu: si apre sopra la pagina, sfondo scuro semitrasparente */
+  .nav-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(17,14,10,0.94);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden;
+    transition:opacity .35s ease, visibility .35s ease;
+  }
+  .nav-overlay.open{ opacity:1; visibility:visible; }
+  .nav-overlay-close{
+    position:absolute; top:26px; right:28px;
+    background:none; border:1px solid rgba(251,248,241,0.4); color:var(--intonaco);
+    width:42px; height:42px; border-radius:50%; cursor:pointer;
+    font-size:1.3rem; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s ease;
+  }
+  .nav-overlay-close:hover{ background:rgba(251,248,241,0.15); }
+  .navlinks{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    list-style:none; margin:0; padding:0;
+  }
+  .navlinks a{
+    display:block; text-decoration:none;
+    font-family:'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+    font-style:italic; font-size:clamp(1.6rem, 5vw, 2.6rem);
+    color:var(--intonaco); opacity:.82; transition:opacity .2s ease, color .2s ease;
+    padding:14px 10px;
+  }
+  .navlinks a:hover{ opacity:1; color:var(--ocra); }
 
   @media (max-width:820px){
-    .navlinks{
-      position:fixed; top:64px; left:0; right:0; bottom:0;
-      background:var(--intonaco); flex-direction:column; gap:0;
-      padding:10px 28px 40px; transform:translateY(-110%); transition:transform .35s ease;
-    }
-    .navlinks.open{transform:translateY(0);}
-    .navlinks a{display:block; padding:16px 0; border-bottom:1px solid rgba(34,29,23,0.1);}
-    .nav-toggle{display:block;}
+    .nav-toggle-label{ display:none; }
+    .navlinks a{ font-size:1.7rem; padding:12px 10px; }
   }
+  body.nav-open{overflow:hidden;}
 
   /* ---------- HERO ---------- */
   .hero{
@@ -361,18 +390,23 @@
       Adriano Segarelli
     </a>
     <button class="nav-toggle" aria-label="Apri menu" aria-expanded="false" id="navToggle">
-      <span></span><span></span><span></span>
+      <span class="nav-toggle-label">Menu</span>
+      <span class="bars"><span></span><span></span><span></span></span>
     </button>
-    <ul class="navlinks" id="navLinks">
-      <li><a href="#chi-sono">Chi sono</a></li>
-      <li><a href="#affresco">L'affresco</a></li>
-      <li><a href="#strappo">Lo strappo d'affresco</a></li>
-      <li><a href="#galleria">Opere</a></li>
-      <li><a href="#applicazioni">Applicazioni</a></li>
-      <li><a href="#contatti">Contatti</a></li>
-    </ul>
   </div>
 </header>
+
+<div class="nav-overlay" id="navOverlay">
+  <button class="nav-overlay-close" id="navClose" aria-label="Chiudi menu">&times;</button>
+  <ul class="navlinks" id="navLinks">
+    <li><a href="#chi-sono">Chi sono</a></li>
+    <li><a href="#affresco">L'affresco</a></li>
+    <li><a href="#strappo">Lo strappo d'affresco</a></li>
+    <li><a href="#galleria">Opere</a></li>
+    <li><a href="#applicazioni">Applicazioni</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+  </ul>
+</div>
 
 <main id="top">
 
@@ -615,17 +649,32 @@
 </footer>
 
 <script>
-  // menu mobile
+  // menu overlay (desktop e mobile)
   const navToggle = document.getElementById('navToggle');
+  const navOverlay = document.getElementById('navOverlay');
+  const navClose = document.getElementById('navClose');
   const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
+
+  function openNav(){
+    navOverlay.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
+  }
+  function closeNav(){
+    navOverlay.classList.remove('open');
     navToggle.setAttribute('aria-expanded', 'false');
-  }));
+    document.body.classList.remove('nav-open');
+  }
+
+  navToggle.addEventListener('click', openNav);
+  navClose.addEventListener('click', closeNav);
+  navOverlay.addEventListener('click', (e) => {
+    if (e.target === navOverlay) closeNav();
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNav();
+  });
 
   // reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
