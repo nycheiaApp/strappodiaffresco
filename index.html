@@ -668,41 +668,35 @@
 <script>
   // Player Dailymotion via SDK ufficiale: alla fine del video resta fermo
   // sull'ultimo fotogramma, senza proporre altri video o sequenze correlate.
-  function mountDmPlayer(elementId, videoId){
-    if (typeof dailymotion === 'undefined' && typeof DM === 'undefined') return;
-    var init = window.dailymotion ? window.dailymotion.createPlayer : (window.DM ? window.DM.player : null);
-    if (!init) return;
+  window.dmAsyncInit = function () {
+    var commonParams = {
+      "endscreen-enable": false,
+      "queue-enable": false,
+      "sharing-enable": false,
+      "ui-logo": false
+    };
 
-    var playerPromise = window.dailymotion
-      ? window.dailymotion.createPlayer(elementId, {
-          video: videoId,
-          params: { endscreenEnable: false, queueEnable: false, sharingEnable: false, mute: false }
-        })
-      : Promise.resolve(window.DM.player(document.getElementById(elementId), {
-          video: videoId,
-          params: { "endscreen-enable": false, "queue-enable": false, "sharing-enable": false }
-        }));
+    function setupPlayer(elementId, videoId) {
+      var mount = document.getElementById(elementId);
+      if (!mount) return;
 
-    playerPromise.then(function(player){
-      var lockEnd = function(){
-        try { player.pause(); player.seek(player.duration ? player.duration - 0.05 : 0); }
-        catch(e){}
-      };
-      if (player.addEventListener) {
-        player.addEventListener('video_end', lockEnd);
-        player.addEventListener('end', lockEnd);
-        player.addEventListener('queue_change', function(){ try{ player.pause(); }catch(e){} });
-      } else if (player.on) {
-        player.on('end', lockEnd);
-        player.on('video_end', lockEnd);
-      }
-    }).catch(function(){ /* fallback silenzioso se l'SDK non è disponibile */ });
-  }
+      var player = DM.player(mount, {
+        video: videoId,
+        width: "100%",
+        height: "100%",
+        params: commonParams
+      });
 
-  window.addEventListener('load', function(){
-    mountDmPlayer('dm-player-hero', 'xatgtzy');
-    mountDmPlayer('dm-player-opere', 'xateh1m');
-  });
+      player.addEventListener("apiready", function () {
+        player.addEventListener("video_end", function () {
+          try { player.pause(); } catch (e) {}
+        });
+      });
+    }
+
+    setupPlayer("dm-player-hero", "xatgtzy");
+    setupPlayer("dm-player-opere", "xateh1m");
+  };
 </script>
 
 </body>
