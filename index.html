@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Favicon generata dal simbolo SVG presente nel logo -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M6 30 L20 6 L34 30 Z' stroke='%23c0472a' stroke-width='2' fill='none'/%3E%3Cpath d='M13 24 L27 24' stroke='%238b4226' stroke-width='2'/%3E%3C/svg%3E">
 <title>Adriano Segarelli — Affreschi e Strappo d'Affresco</title>
 <meta name="description" content="Affreschi su commissione, realizzati anche con la tecnica dello strappo d'affresco per creare opere murali trasportabili. Interventi per abitazioni private, spazi pubblici, eventi e commemorazioni.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='6' fill='%23f3ecdd'/%3E%3Cpath d='M6 30 L20 6 L34 30 Z' stroke='%23c0472a' stroke-width='2.4' fill='none'/%3E%3Cpath d='M13 24 L27 24' stroke='%238b4226' stroke-width='2.4'/%3E%3C/svg%3E">
 <style>
   :root{
     --intonaco:#f3ecdd;
@@ -44,6 +43,7 @@
 
   .wrap{max-width:var(--max-w); margin:0 auto; padding:0 28px;}
 
+  /* texture di fondo: intonaco a calce, leggera grana */
   .plaster{
     background-image:
       radial-gradient(circle at 18% 24%, rgba(255,255,255,0.35) 0, transparent 45%),
@@ -52,6 +52,7 @@
     background-color:var(--intonaco);
   }
 
+  /* ---------- NAV ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:50;
     background:rgba(243,236,221,0.92);
@@ -92,6 +93,7 @@
     .nav-toggle{display:block;}
   }
 
+  /* ---------- HERO ---------- */
   .hero{
     position:relative;
     min-height:100vh;
@@ -130,12 +132,13 @@
   .btn-ghost{background:transparent; border-color:var(--carbone); color:var(--carbone);}
   .btn-ghost:hover{background:var(--carbone); color:var(--calce);}
 
+  /* Elemento firma: il video incorporato al posto del muro dipinto */
   .strappo-visual{
     position:relative; height:460px; overflow:hidden;
     border-radius:2px; background:var(--carbone);
     box-shadow:0 20px 50px rgba(34,29,23,0.18);
   }
-  .strappo-visual iframe{
+  .strappo-visual .dm-player-mount, .strappo-visual .dm-player-mount iframe{
     position:absolute; inset:0; width:100%; height:100%; border:0;
   }
   .visual-caption{
@@ -149,6 +152,7 @@
     .strappo-visual{height:320px;}
   }
 
+  /* ---------- SEZIONI GENERICHE ---------- */
   section{padding:110px 0;}
   .section-head{max-width:640px; margin:0 0 56px;}
   .section-head h2{
@@ -157,6 +161,7 @@
   }
   .section-head p{color:#4a4234; font-size:1.02rem; max-width:56ch;}
 
+  /* bordo strappato tra sezioni: il motivo firma ricorrente */
   .tear{
     height:46px; width:100%;
     background:var(--calce);
@@ -168,13 +173,19 @@
   }
   .tear.flip{ transform:scaleY(-1); }
 
+  /* ---------- CHI SONO ---------- */
   .chi-sono{background:var(--intonaco);}
   .chi-grid{display:grid; grid-template-columns:1fr; max-width:760px; margin:0 auto;}
   .chi-testo h3{
     font-size:1.5rem; font-style:italic; font-weight:600; margin:0 0 18px; color:var(--terra-siena);
   }
   .chi-testo p{color:#3a332a; margin:0 0 16px;}
-  
+  .firme{display:flex; gap:34px; margin-top:30px; flex-wrap:wrap;}
+  .firme div{border-left:2px solid var(--sinopia); padding-left:14px;}
+  .firme strong{display:block; font-family:'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif; font-size:1.5rem; font-style:italic;}
+  .firme span{font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:.76rem; text-transform:uppercase; letter-spacing:.06em; color:#6b6252;}
+
+  /* ---------- COS'È L'AFFRESCO ---------- */
   .cos-e{background:var(--calce);}
   .cos-e .wrap{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
   .cos-e p{color:#3a332a;}
@@ -188,6 +199,7 @@
   }
   @media (max-width:820px){ .cos-e .wrap{grid-template-columns:1fr;} }
 
+  /* ---------- STRAPPO: FASI ---------- */
   .strappo-sezione{background:var(--intonaco);}
   .fasi{
     display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
@@ -213,6 +225,7 @@
   }
   .strappo-nota p{margin:0; color:#2c3846; font-size:.96rem;}
 
+  /* ---------- APPLICAZIONI ---------- */
   .applicazioni{background:var(--carbone); color:var(--intonaco);}
   .applicazioni .section-head h2{color:var(--intonaco);}
   .applicazioni .section-head p{color:#c9c0ac;}
@@ -227,13 +240,14 @@
   .app-card p{ color:#c9c0ac; font-size:.94rem; margin:0; flex:1; }
   @media (max-width:900px){ .app-grid{grid-template-columns:1fr;} }
 
+  /* ---------- GALLERIA / VIDEO ---------- */
   .galleria{background:var(--intonaco);}
   .video-frame{
     position:relative; width:100%; aspect-ratio:16/9;
     background:var(--carbone); overflow:hidden; border-radius:1px;
     box-shadow:0 20px 50px rgba(34,29,23,0.18);
   }
-  .video-frame iframe{
+  .video-frame .dm-player-mount, .video-frame .dm-player-mount iframe{
     position:absolute; inset:0; width:100%; height:100%; border:0;
   }
   .g-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
@@ -252,6 +266,7 @@
   .g-item:hover .label{opacity:1;}
   @media (max-width:820px){ .g-grid{grid-template-columns:1fr;} }
 
+  /* ---------- LIGHTBOX ---------- */
   .lightbox{
     position:fixed; inset:0; z-index:200;
     background:rgba(17,14,10,0.92);
@@ -287,6 +302,7 @@
     .lightbox-close{ top:-40px; right:0; }
   }
 
+  /* ---------- CONTATTI ---------- */
   .contatti{background:var(--calce);}
   .cont-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px;}
   .cont-info h3{font-style:italic; font-size:1.4rem; margin:0 0 14px; color:var(--terra-siena);}
@@ -322,6 +338,7 @@
   }
   @media (max-width:700px){ .foot-grid{grid-template-columns:1fr;} }
 
+  /* reveal on scroll */
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
@@ -355,6 +372,7 @@
 
 <main id="top">
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-grid">
       <div>
@@ -367,12 +385,7 @@
         </div>
       </div>
       <div class="strappo-visual reveal">
-        <iframe
-          src="https://www.dailymotion.com/embed/video/xatgtzy?endscreen-enable=false&endscreen_enable=false&queue-enable=false&queue_enable=false&sharing-enable=false"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen
-          title="L'affresco in lavorazione">
-        </iframe>
+        <div id="dm-player-hero" class="dm-player-mount"></div>
         <p class="visual-caption">La pellicola pittorica si stacca dall'intonaco: il gesto che dà nome allo strappo</p>
       </div>
     </div>
@@ -380,6 +393,7 @@
 
   <div class="tear" aria-hidden="true"></div>
 
+  <!-- CHI SONO -->
   <section class="chi-sono" id="chi-sono">
     <div class="wrap chi-grid">
       <div class="chi-testo reveal">
@@ -392,6 +406,7 @@
 
   <div class="tear flip" aria-hidden="true"></div>
 
+  <!-- COS'È L'AFFRESCO -->
   <section class="cos-e" id="affresco">
     <div class="wrap">
       <div class="reveal">
@@ -412,6 +427,7 @@
 
   <div class="tear" aria-hidden="true"></div>
 
+  <!-- STRAPPO: FASI -->
   <section class="strappo-sezione" id="strappo">
     <div class="wrap">
       <div class="section-head reveal">
@@ -459,6 +475,7 @@
     </div>
   </section>
 
+  <!-- APPLICAZIONI -->
   <section class="applicazioni" id="applicazioni">
     <div class="wrap">
       <div class="section-head reveal">
@@ -486,6 +503,8 @@
     </div>
   </section>
 
+
+  <!-- OPERE / VIDEO -->
   <section class="galleria" id="galleria">
     <div class="wrap">
       <div class="section-head reveal">
@@ -494,16 +513,13 @@
         <p>Un breve video mostra da vicino il gesto della pittura a fresco e la nascita di un'opera, dalla stesura dell'intonaco alla pennellata finale.</p>
       </div>
       <div class="video-frame reveal">
-        <iframe
-          src="https://www.dailymotion.com/embed/video/xateh1m?endscreen-enable=false&endscreen_enable=false&queue-enable=false&queue_enable=false&sharing-enable=false"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen
-          title="L'affresco in lavorazione">
-        </iframe>
+        <div id="dm-player-opere" class="dm-player-mount"></div>
       </div>
     </div>
   </section>
 
+
+  <!-- CONTATTI -->
   <section class="contatti" id="contatti">
     <div class="wrap cont-grid">
       <div class="cont-info reveal">
@@ -584,102 +600,110 @@
 </footer>
 
 <script>
-  (function() {
-    // Menu Mobile
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    
-    if(navToggle && navLinks) {
-      navToggle.addEventListener('click', function() {
-        const isOpen = navLinks.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
+  // menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
 
-      navLinks.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() {
-          navLinks.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
-
-    // Reveal on Scroll
-    const revealElements = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-
-      revealElements.forEach(function(el) {
-        observer.observe(el);
-      });
-    } else {
-      revealElements.forEach(function(el) {
-        el.classList.add('in');
-      });
-    }
-
-    // Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
-    const lightboxClose = document.getElementById('lightboxClose');
-
-    function openLightbox(src, caption) {
-      if (!lightbox || !lightboxImg) return;
-      lightboxImg.src = src;
-      lightboxImg.alt = caption || '';
-      if (lightboxCaption) lightboxCaption.textContent = caption || '';
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightboxFunc() {
-      if (!lightbox) return;
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-      setTimeout(function() {
-        if(lightboxImg) lightboxImg.src = '';
-      }, 300);
-    }
-
-    const galleryItems = document.querySelectorAll('.g-item');
-    galleryItems.forEach(function(item) {
-      item.addEventListener('click', function() {
-        const img = item.querySelector('img');
-        const label = item.querySelector('.label');
-        if (img) {
-          const caption = label ? label.textContent : (img.alt || '');
-          openLightbox(img.src, caption);
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
         }
       });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  // lightbox: apre la foto a schermo intero al click
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src, caption) {
+    lightboxImg.src = src;
+    lightboxImg.alt = caption;
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.g-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      const label = item.querySelector('.label');
+      openLightbox(img.src, label ? label.textContent : img.alt);
     });
+  });
 
-    if (lightboxClose) {
-      lightboxClose.addEventListener('click', closeLightboxFunc);
-    }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 
-    if (lightbox) {
-      lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-          closeLightboxFunc();
-        }
-      });
-    }
+<script src="https://api.dmcdn.net/all.js"></script>
+<script>
+  // Player Dailymotion via SDK ufficiale: alla fine del video resta fermo
+  // sull'ultimo fotogramma, senza proporre altri video o sequenze correlate.
+  function mountDmPlayer(elementId, videoId){
+    if (typeof dailymotion === 'undefined' && typeof DM === 'undefined') return;
+    var init = window.dailymotion ? window.dailymotion.createPlayer : (window.DM ? window.DM.player : null);
+    if (!init) return;
 
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
-        closeLightboxFunc();
+    var playerPromise = window.dailymotion
+      ? window.dailymotion.createPlayer(elementId, {
+          video: videoId,
+          params: { endscreenEnable: false, queueEnable: false, sharingEnable: false, mute: false }
+        })
+      : Promise.resolve(window.DM.player(document.getElementById(elementId), {
+          video: videoId,
+          params: { "endscreen-enable": false, "queue-enable": false, "sharing-enable": false }
+        }));
+
+    playerPromise.then(function(player){
+      var lockEnd = function(){
+        try { player.pause(); player.seek(player.duration ? player.duration - 0.05 : 0); }
+        catch(e){}
+      };
+      if (player.addEventListener) {
+        player.addEventListener('video_end', lockEnd);
+        player.addEventListener('end', lockEnd);
+        player.addEventListener('queue_change', function(){ try{ player.pause(); }catch(e){} });
+      } else if (player.on) {
+        player.on('end', lockEnd);
+        player.on('video_end', lockEnd);
       }
-    });
-  })();
+    }).catch(function(){ /* fallback silenzioso se l'SDK non è disponibile */ });
+  }
+
+  window.addEventListener('load', function(){
+    mountDmPlayer('dm-player-hero', 'xatgtzy');
+    mountDmPlayer('dm-player-opere', 'xateh1m');
+  });
 </script>
 
 </body>
 </html>
-```
