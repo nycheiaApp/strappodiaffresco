@@ -138,7 +138,7 @@
     border-radius:2px; background:var(--carbone);
     box-shadow:0 20px 50px rgba(34,29,23,0.18);
   }
-  .strappo-visual .dm-player-mount, .strappo-visual .dm-player-mount iframe{
+  .strappo-visual iframe{
     position:absolute; inset:0; width:100%; height:100%; border:0;
   }
   .visual-caption{
@@ -247,7 +247,7 @@
     background:var(--carbone); overflow:hidden; border-radius:1px;
     box-shadow:0 20px 50px rgba(34,29,23,0.18);
   }
-  .video-frame .dm-player-mount, .video-frame .dm-player-mount iframe{
+  .video-frame iframe{
     position:absolute; inset:0; width:100%; height:100%; border:0;
   }
   .g-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
@@ -385,7 +385,12 @@
         </div>
       </div>
       <div class="strappo-visual reveal">
-        <div id="dm-player-hero" class="dm-player-mount"></div>
+        <iframe
+          src="https://www.dailymotion.com/embed/video/xatgtzy?endscreen-enable=false&queue-enable=false&sharing-enable=false&ui-logo=false"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          title="L'affresco in lavorazione">
+        </iframe>
         <p class="visual-caption">La pellicola pittorica si stacca dall'intonaco: il gesto che dà nome allo strappo</p>
       </div>
     </div>
@@ -513,7 +518,12 @@
         <p>Un breve video mostra da vicino il gesto della pittura a fresco e la nascita di un'opera, dalla stesura dell'intonaco alla pennellata finale.</p>
       </div>
       <div class="video-frame reveal">
-        <div id="dm-player-opere" class="dm-player-mount"></div>
+        <iframe
+          src="https://www.dailymotion.com/embed/video/xateh1m?endscreen-enable=false&queue-enable=false&sharing-enable=false&ui-logo=false"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen
+          title="L'affresco in lavorazione">
+        </iframe>
       </div>
     </div>
   </section>
@@ -662,41 +672,6 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeLightbox();
   });
-</script>
-
-<script src="https://api.dmcdn.net/all.js"></script>
-<script>
-  // Player Dailymotion via SDK ufficiale: alla fine del video resta fermo
-  // sull'ultimo fotogramma, senza proporre altri video o sequenze correlate.
-  window.dmAsyncInit = function () {
-    var commonParams = {
-      "endscreen-enable": false,
-      "queue-enable": false,
-      "sharing-enable": false,
-      "ui-logo": false
-    };
-
-    function setupPlayer(elementId, videoId) {
-      var mount = document.getElementById(elementId);
-      if (!mount) return;
-
-      var player = DM.player(mount, {
-        video: videoId,
-        width: "100%",
-        height: "100%",
-        params: commonParams
-      });
-
-      player.addEventListener("apiready", function () {
-        player.addEventListener("video_end", function () {
-          try { player.pause(); } catch (e) {}
-        });
-      });
-    }
-
-    setupPlayer("dm-player-hero", "xatgtzy");
-    setupPlayer("dm-player-opere", "xateh1m");
-  };
 </script>
 
 </body>
